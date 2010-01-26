@@ -29,5 +29,5 @@
 
 (defstruct player :location)
 
-(defn move-player [player rooms direction]
-  (struct player (move rooms (:location player) direction)))
+(defn move-player [a-player rooms direction]
+  (struct player (move rooms (:location a-player) direction)))
