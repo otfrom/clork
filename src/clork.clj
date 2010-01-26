@@ -26,3 +26,8 @@
 
 (defn move [rooms from direction]
   (direction (:exits (rooms from))))
+
+(defstruct player :location)
+
+(defn move-player [player rooms direction]
+  (struct player (move rooms (:location player) direction)))
