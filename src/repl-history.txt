@@ -1,0 +1,57 @@
+; SLIME 20091016
+user> (in-ns 'clork)
+#<Namespace clork>
+clork> (def fred (struct player "lobby"))
+#'clork/fred
+clork> fred
+{:room "lobby"}
+clork> (look :kitchen)
+"A kitchern with a roaring fire"
+clork> (move rooms :kitchen :w)
+nil
+clork> (move rooms :kitchen :e)
+nil
+clork> (move rooms :hall :e)
+nil
+clork> (move rooms :hall :n)
+:kitchen
+clork> (player :kitchen)
+; Evaluation aborted.
+clork> (struct player :hall)
+{:location :hall}
+clork> (move-player (struct player :hall) rooms :n)
+; Evaluation aborted.
+clork> (move-player (struct player :hall) rooms :n)
+; Evaluation aborted.
+clork> (move-player (struct player :hall) rooms :n)
+; Evaluation aborted.
+clork> (move rooms :hall :n)
+:kitchen
+clork> (move-player (struct player :hall) rooms :n)
+{:location :kitchen}
+clork> (move-player (struct player :hall) rooms :e)
+{:location nil}
+clork> (move-player (struct player :hall) rooms :e)
+{:location :hall}
+clork> 
+nil
+clork> 
+nil
+clork> the-player
+; Evaluation aborted.
+clork> the-player
+#<Atom@d2f5f1: {:location :hall}>
+clork> @the-player
+{:location :hall}
+clork> (west)
+{:location :lounge}
+clork> @the-player
+{:location :lounge}
+clork> @the-player
+{:location :hall}
+clork> (west)
+"A lounge with a red chez longue"
+clork> (west)
+A lounge with a red chez longue
+nil
+clork> 

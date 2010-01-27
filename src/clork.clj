@@ -38,5 +38,5 @@
 
 (defn west []
   (swap! the-player #(move-player % rooms :w))
-  (look rooms (:location @the-player)))
+  (println (look rooms (:location @the-player))))
     
