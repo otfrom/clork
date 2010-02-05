@@ -31,7 +31,7 @@
 
 (defn move-player [a-player rooms direction]
   (let [new-room (move rooms (:location a-player) direction)]
-    (if new-room (struct player new-room) a-player) ))
+    (if new-room (struct player new-room) a-player)))
 
 
 (def the-player (atom (struct player :hall)))
@@ -39,4 +39,4 @@
 (defn west []
   (swap! the-player #(move-player % rooms :w))
   (println (look rooms (:location @the-player))))
-    
+
