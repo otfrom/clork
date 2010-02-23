@@ -1,5 +1,6 @@
 (ns clork)
 
+(use 'world)
 ;; represent a room
 ;; represent a set of rooms
 ;; represent monsters
@@ -13,13 +14,6 @@
 ;; (def hall {:exits [cell]
 ;;            :items []})
 
-(def rooms {:hall {:description "A large vaulted hall"
-                   :exits {:n :kitchen
-                           :w :lounge}}
-            :kitchen {:description "A kitchen with a roaring fire"
-                      :exits {:s :hall}}
-            :lounge {:description "A lounge with a red chez longue"
-                     :exits {:e :hall}}})
 
 (defn look [rooms room]
   (:description (room rooms)))
