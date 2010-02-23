@@ -30,7 +30,13 @@
 
 (def the-player (atom (struct player :hall)))
 
-(defn west []
-  (swap! the-player #(move-player % rooms :w))
+(defn move-and-print [direction]
+  (swap! the-player #(move-player % rooms direction))
   (println (look rooms (:location @the-player))))
+
+
+ (map #(defn %1 [] (move-and-print %2))
+      ['north 'south 'east 'west]
+      [:n :s :e :w])
+
     
