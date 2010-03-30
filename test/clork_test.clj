@@ -10,3 +10,9 @@
 
 (deftest move-test
   (is (= (move-player {:location :test-room-1} test-rooms :w) {:location :test-room-2})))
+
+(deftest the-sword-is-in-the-hall
+  (is (= (items-for :stone)  ["Sword"]))
+  (is (= (items-for :hall) ["Clock"])))
+
+
