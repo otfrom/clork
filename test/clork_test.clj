@@ -9,10 +9,15 @@
 (use-fixtures :once clork-fixture)
 
 (deftest move-test
-  (is (= (move-player {:location :test-room-1} test-rooms :w) {:location :test-room-2})))
+  (is (=  (:location (move-player {:location :test-room-1} test-rooms :w)) :test-room-2)))
 
-(deftest the-sword-is-in-the-hall
+(deftest the-item-is-in
   (is (= (items-for :stone)  ["Sword"]))
   (is (= (items-for :hall) ["Clock"])))
 
+(deftest take-item-test
+  (is (= (:inventory @the-player) []))
+  (do (take-an-item "Clock")
+      (is (= (:inventory @the-player) ["Clock"]))
+      (is (= (items-for :player) ["Clock"]))))
 

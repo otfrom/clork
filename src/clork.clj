@@ -13,10 +13,14 @@
 ;;            :items []})
 
 (def items
-     [ {:location :stone
+     [ {:location (atom :stone)
         :name "Sword"}
-       {:location :hall
+       {:location (atom :hall)
         :name "Clock"}])
+
+(defstruct player :location :inventory)
+
+(def the-player (atom (struct player :hall [])))
 
 (defn look
   ([] (look rooms))
@@ -25,19 +29,19 @@
      (:description (room rooms))))
 
 (defn items-for [location]
-  (map :name (filter #(= (:location %) location) items)))
+  (map :name (filter #(= @(:location %) location) items)))
 
 (defn move [rooms from direction]
   (direction (:exits (rooms from))))
 
-(defstruct player :location)
+
 
 (defn move-player [a-player rooms direction]
   (let [new-room (move rooms (:location a-player) direction)]
     (if new-room (struct player new-room) a-player) ))
 
 
-(def the-player (atom (struct player :hall)))
+
 
 (defn move-and-print [direction]
   (swap! the-player #(move-player % rooms direction))
@@ -48,4 +52,9 @@
       ['north 'south 'east 'west]
       [:n :s :e :w])
 
+(defn take-an-item [item]
+  (dosync
+   (swap! the-player assoc :inventory [item]))
+  (reset! (:location (find-first #(= (:name %) item) items)) :player)
+  )
 
