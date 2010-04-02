@@ -40,21 +40,12 @@
   (let [new-room (move rooms (:location a-player) direction)]
     (if new-room (struct player new-room) a-player) ))
 
-
-
-
 (defn move-and-print [direction]
   (swap! the-player #(move-player % rooms direction))
   (println (look rooms (:location @the-player))))
 
-
- (map #(defn %1 [] (move-and-print %2))
-      ['north 'south 'east 'west]
-      [:n :s :e :w])
-
 (defn take-an-item [item]
   (dosync
    (swap! the-player assoc :inventory [item]))
-  (reset! (:location (find-first #(= (:name %) item) items)) :player)
-  )
+  (reset! (:location (find-first #(= (:name %) item) items)) :player))
 
