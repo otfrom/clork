@@ -7,3 +7,4 @@
                       :exits {:s :hall}}
             :lounge {:description "A lounge with a red chez longue"
                      :exits {:e :hall}}})
+
