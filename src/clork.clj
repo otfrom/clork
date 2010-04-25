@@ -5,19 +5,6 @@
 ;; represent a room
 ;; represent a set of rooms
 ;; represent monsters
-;; (declare hall kitchen bag-of-gold sword)
-
-;; (def cell {:exits [hall kitchen]
-;;            :items [bag-of-gold sword]})
-
-;; (def hall {:exits [cell]
-;;            :items []})
-
-;; (def items
-;;      [{:location (atom :stone)
-;;         :name "Sword"}
-;;        {:location (atom :hall)
-;;         :name "Clock"}])
 
 (defstruct player :location :inventory)
 
@@ -25,11 +12,23 @@
 
 (defstruct room :exits :description)
 
+(def direction-desc {:n "North" :s "South" :e "East" :w "West"})
+
 ;; (def the-player (atom (struct player :hall [])))
 
+(defn desc-exits [room]
+  (let [exits (keys (:exits room))
+        direction-strings (sort (map #(% direction-desc) exits))]
+    (reduce print-str direction-strings)))
+
 (defn look [world player]
-  (let [curr-room (get-in world [:players player :location])]
-    (get-in world [:rooms curr-room :description])))
+  (let [curr-room-name (get-in world [:players player :location])
+        curr-room (get-in world [:rooms curr-room-name])
+        room-desc (get-in world [:rooms curr-room-name :description])
+        item-descs ()]
+    (str (println-str room-desc) 
+         (println-str "Exits:" (desc-exits curr-room))
+         (println-str "Items:" (reduce print-str item-descs)))))
 
 (defn items-for [location]
   (map :name (filter #(= @(:location %) location) items)))

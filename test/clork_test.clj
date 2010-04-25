@@ -15,15 +15,17 @@
                      :players {:player1 (struct player :hall [])
                                :player2 (struct player :kitchen [])}
                      :items {}})
-  (def test-rooms {:test-room-1 {:exits {:w :test-room-2}}})
   (f)
-  (def test-rooms nil))
+  (def *test-world* nil))
 
 (use-fixtures :once clork-fixture)
 
+(deftest desc-exits-test
+  (is (= "North West" (desc-exits (get-in *test-world* [:rooms :hall])))))
+
 (deftest look-test
-  (is (= "hall" (look *test-world* :player1)))
-  (is (= "kitchen" (look *test-world* :player2))))
+  (is (= "hall\nExits: North West\nItems: \n" (look *test-world* :player1)))
+  (is (= "kitchen\nExits: East\nItems: \n" (look *test-world* :player2))))
 
 (deftest move-test
   (is (= :kitchen (get-in (move-player *test-world* :player1 :w) [:players :player1 :location])))
