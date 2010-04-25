@@ -31,14 +31,3 @@
   (is (= :kitchen (get-in (move-player *test-world* :player1 :w) [:players :player1 :location])))
   (is (= :study (get-in (move-player *test-world* :player1 :n) [:players :player1 :location])))
   (is (= :hall (get-in (move-player *test-world* :player1 :e) [:players :player1 :location]))))
-
-;; (deftest the-item-is-in
-;;   (is (= (items-for :stone)  ["Sword"]))
-;;   (is (= (items-for :hall) ["Clock"])))
-
-;; (deftest take-item-test
-;;   (is (= (:inventory @the-player) []))
-;;   (do (take-an-item "Clock")
-;;       (is (= (:inventory @the-player) ["Clock"]))
-;;       (is (= (items-for :player) ["Clock"]))))
-
