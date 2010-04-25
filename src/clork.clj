@@ -13,15 +13,15 @@
 ;; (def hall {:exits [cell]
 ;;            :items []})
 
-(def items
-     [ {:location (atom :stone)
-        :name "Sword"}
-       {:location (atom :hall)
-        :name "Clock"}])
+;; (def items
+;;      [{:location (atom :stone)
+;;         :name "Sword"}
+;;        {:location (atom :hall)
+;;         :name "Clock"}])
 
 (defstruct player :location :inventory)
 
-(def the-player (atom (struct player :hall [])))
+;; (def the-player (atom (struct player :hall [])))
 
 (defn look
   ([] (look rooms))
@@ -35,9 +35,16 @@
 (defn move [rooms from direction]
   (direction (:exits (rooms from))))
 
-(defn move-player [a-player rooms direction]
-  (let [new-room (move rooms (:location a-player) direction)]
-    (if new-room (struct player new-room) a-player) ))
+;; (defn move-player [a-player rooms direction]
+;;   (let [new-room (move rooms (:location a-player) direction)]
+;;     (if new-room (struct player new-room) a-player) ))
+
+(defn move-player [world player direction]
+  (let [curr-room (get-in world [:players player :location])
+        routes (get-in world [:rooms curr-room :exits])]
+    (if (contains? routes direction)
+      (update-in world [:players player] #(merge % {:location (get routes direction)}))
+      world)))
 
 (defn move-and-print [direction]
   (swap! the-player #(move-player % rooms direction))
