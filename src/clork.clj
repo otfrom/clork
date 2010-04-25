@@ -21,23 +21,18 @@
 
 (defstruct player :location :inventory)
 
+(defstruct item :location :description)
+
+(defstruct room :exits :description)
+
 ;; (def the-player (atom (struct player :hall [])))
 
-(defn look
-  ([] (look rooms))
-  ([rooms] (look rooms (:location @the-player)))
-  ([rooms room]
-     (:description (room rooms))))
+(defn look [world player]
+  (let [curr-room (get-in world [:players player :location])]
+    (get-in world [:rooms curr-room :description])))
 
 (defn items-for [location]
   (map :name (filter #(= @(:location %) location) items)))
-
-(defn move [rooms from direction]
-  (direction (:exits (rooms from))))
-
-;; (defn move-player [a-player rooms direction]
-;;   (let [new-room (move rooms (:location a-player) direction)]
-;;     (if new-room (struct player new-room) a-player) ))
 
 (defn move-player [world player direction]
   (let [curr-room (get-in world [:players player :location])
