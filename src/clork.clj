@@ -5,46 +5,45 @@
 ;; represent a room
 ;; represent a set of rooms
 ;; represent monsters
-;; (declare hall kitchen bag-of-gold sword)
-
-;; (def cell {:exits [hall kitchen]
-;;            :items [bag-of-gold sword]})
-
-;; (def hall {:exits [cell]
-;;            :items []})
-
-(def items
-     [ {:location (atom :stone)
-        :name "Sword"}
-       {:location (atom :hall)
-        :name "Clock"}])
 
 (defstruct player :location :inventory)
 
-(def the-player (atom (struct player :hall [])))
+(defstruct item :description)
 
-(defn look
-  ([] (look rooms))
-  ([rooms] (look rooms (:location @the-player)))
-  ([rooms room]
-     (:description (room rooms))))
+(defstruct container :description :inventory)
 
-(defn items-for [location]
-  (map :name (filter #(= @(:location %) location) items)))
+(defstruct room :exits :description :items)
 
-(defn move [rooms from direction]
-  (direction (:exits (rooms from))))
+(def direction-desc {:n "North" :s "South" :e "East" :w "West"})
 
-(defn move-player [a-player rooms direction]
-  (let [new-room (move rooms (:location a-player) direction)]
-    (if new-room (struct player new-room) a-player) ))
+(defn desc-exits [room]
+  (let [exits (keys (:exits room))
+        direction-strings (sort (map #(% direction-desc) exits))]
+    (reduce print-str direction-strings)))
 
-(defn move-and-print [direction]
-  (swap! the-player #(move-player % rooms direction))
-  (println (look rooms (:location @the-player))))
+(defn look [world player]
+  (let [curr-room-name (get-in world [:players player :location])
+        curr-room (get-in world [:rooms curr-room-name])
+        room-desc (:description curr-room)
+        items-in-room (:items curr-room)
+        item-descs (map #(get-in world [:items % :description]) items-in-room)]
+    (str (println-str room-desc) 
+         (println-str "Exits:" (desc-exits curr-room))
+         (println-str "Items:" (reduce print-str item-descs)))))
 
-(defn take-an-item [item]
-  (dosync
-   (swap! the-player assoc :inventory [item]))
-  (reset! (:location (find-first #(= (:name %) item) items)) :player))
+(defn move-player [world player direction]
+  (let [curr-room (get-in world [:players player :location])
+        routes (get-in world [:rooms curr-room :exits])]
+    (if (contains? routes direction)
+      (update-in world [:players player] #(merge % {:location (get routes direction)}))
+      world)))
 
+(defn pick-up [world player item]
+  (let [curr-room-name (get-in world [:players player :location])
+        curr-room (get-in world [:rooms curr-room-name])
+        items-in-room (:items curr-room)]
+    (if (contains? items-in-room item)
+      (update-in (update-in world [:players player :inventory] conj item)
+                 [:rooms (get-in world [:players player :location]) :items]
+                 #(remove (fn [i] (= i item)) %))
+      world)))
