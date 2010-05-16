@@ -1,22 +1,10 @@
 (ns clork-test
   (:use clork :reload-all)
+  (:use world :reload-all)
   (:use clojure.test))
 
 (defn clork-fixture [f]
-  (def *test-world* {:rooms {:hall (struct room
-                                           {:w :kitchen
-                                            :n :study}
-                                           "hall"
-                                           [:sword])
-                             :kitchen (struct room
-                                              {:e :hall}
-                                              "kitchen")
-                             :study (struct room
-                                            {:s :hall}
-                                            "study")}
-                     :players {:player1 (struct player :hall [])
-                               :player2 (struct player :kitchen [])}
-                     :items {:sword (struct item "A very pointy sword.")}})
+  (def *test-world* *world*)
   (f)
   (def *test-world* nil))
 
