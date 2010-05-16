@@ -1,6 +1,5 @@
 (ns clork
-  (:use world)
-  (:use clojure.contrib.seq-utils))
+  (:use world))
 
 ;; represent a room
 ;; represent a set of rooms
