@@ -39,7 +39,7 @@
   (is (= [] (get-items (add-to-items *test-world* :player1 :penguin) :player1))))
 
 (deftest pick-up-test
-  (is (= [:water] (get-inventory (pick-up *test-world* :player1 :water) :player1)))
-  (is (not (= nil (get-in (pick-up *test-world* :player1 :sword) [:players :player1 :inventory 0]))))
-  (is (= [] (get-in (pick-up *test-world* :player1 :penguin) [:players :player1 :inventory])))
+  (is (= [:water] (get-items (pick-up *test-world* :player1 :water) :player1)))
+  (is (= :sword (get-in (pick-up *test-world* :player1 :sword) [:players :player1 :items 0])))
+  (is (= [] (get-in (pick-up *test-world* :player1 :penguin) [:players :player1 :items])))
   (is (= [] (get-in (pick-up *test-world* :player1 :sword) [:rooms :hall :items]))))

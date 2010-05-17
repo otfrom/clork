@@ -45,11 +45,4 @@
 (defn remove-from-world [world item])
 
 (defn pick-up [world player item]
-  (let [curr-room-name (get-in world [:players player :location])
-        curr-room (get-in world [:rooms curr-room-name])
-        items-in-room (:items curr-room)]
-    (if (contains? items-in-room item)
-      (update-in (update-in world [:players player :items] conj item)
-                 [:rooms (get-in world [:players player :location]) :items]
-                 #(remove (fn [i] (= i item)) %))
-      world)))
+  (add-to-items world player item))
