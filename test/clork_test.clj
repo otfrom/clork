@@ -35,7 +35,8 @@
   (is (= (get-in *test-world* [:rooms :kitchen]) (current-room *test-world* :player2))))
 
 (deftest add-to-items-test
-  (is (= [:water] (get-items (add-to-items *test-world* :player1 :water) :player1))))
+  (is (= [:water] (get-items (add-to-items *test-world* :player1 :water) :player1)))
+  (is (= [] (get-items (add-to-items *test-world* :player1 :penguin) :player1))))
 
 (deftest pick-up-test
   (is (= [:water] (get-inventory (pick-up *test-world* :player1 :water) :player1)))

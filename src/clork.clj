@@ -36,7 +36,11 @@
   (let [player-location (get-in world [:players player :location])]
     (get-in world [:rooms player-location])))
 
-(defn add-to-items [world player item])
+(defn add-to-items [world player item]
+  (let [curr-room (current-room world player)
+        item (some #{item} (:items curr-room))]
+    (if item (update-in world [:players player :items] #(conj % item))
+        world)))
 
 (defn remove-from-world [world item])
 
