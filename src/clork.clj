@@ -29,14 +29,14 @@
       (update-in world [:players player] #(merge % {:location (get routes direction)}))
       world)))
 
-(defn get-inventory [world player]
-  (get-in world [:players player :inventory]))
+(defn get-items [world player]
+  (get-in world [:players player :items]))
 
 (defn current-room [world player]
   (let [player-location (get-in world [:players player :location])]
     (get-in world [:rooms player-location])))
 
-(defn add-to-inv [world player item])
+(defn add-to-items [world player item])
 
 (defn remove-from-world [world item])
 
@@ -45,7 +45,7 @@
         curr-room (get-in world [:rooms curr-room-name])
         items-in-room (:items curr-room)]
     (if (contains? items-in-room item)
-      (update-in (update-in world [:players player :inventory] conj item)
+      (update-in (update-in world [:players player :items] conj item)
                  [:rooms (get-in world [:players player :location]) :items]
                  #(remove (fn [i] (= i item)) %))
       world)))

@@ -1,11 +1,11 @@
 (ns world
   (:use clork))
 
-(defrecord Player [location inventory])
+(defrecord Player [location items])
 
 (defstruct item :description)
 
-(defstruct container :description :inventory)
+(defstruct container :description :items)
 
 (defstruct room :exits :description :items)
 
