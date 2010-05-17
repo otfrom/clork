@@ -5,14 +5,6 @@
 ;; represent a set of rooms
 ;; represent monsters
 
-(defstruct player :location :inventory)
-
-(defstruct item :description)
-
-(defstruct container :description :inventory)
-
-(defstruct room :exits :description :items)
-
 (def direction-desc {:n "North" :s "South" :e "East" :w "West"})
 
 (defn desc-exits [room]
