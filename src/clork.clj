@@ -33,7 +33,8 @@
   (get-in world [:players player :inventory]))
 
 (defn current-room [world player]
-  (get-in world [:players player :location]))
+  (let [player-location (get-in world [:players player :location])]
+    (get-in world [:rooms player-location])))
 
 (defn add-to-inv [world player item])
 

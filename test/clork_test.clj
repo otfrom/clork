@@ -31,8 +31,8 @@
   (is (= [:cloth] (get-inventory *test-world* :player2))))
 
 (deftest current-room-test
-  (is (= :hall (current-room *test-world* :player1)))
-  (is (= :kitchen (current-room *test-world* :player2))))
+  (is (= (get-in *test-world* [:rooms :hall]) (current-room *test-world* :player1)))
+  (is (= (get-in *test-world* [:rooms :kitchen]) (current-room *test-world* :player2))))
 
 (deftest add-to-inventory-test
   (is (= [:water] (get-inventory (add-to-inv *test-world* :player1 :water) :player1))))
