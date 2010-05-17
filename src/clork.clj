@@ -29,6 +29,16 @@
       (update-in world [:players player] #(merge % {:location (get routes direction)}))
       world)))
 
+(defn get-inventory [world player]
+  (get-in world [:players player :inventory]))
+
+(defn current-room [world player]
+  (get-in world [:players player :location]))
+
+(defn add-to-inv [world player item])
+
+(defn remove-from-world [world item])
+
 (defn pick-up [world player item]
   (let [curr-room-name (get-in world [:players player :location])
         curr-room (get-in world [:rooms curr-room-name])

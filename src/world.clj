@@ -13,7 +13,7 @@
                                     {:w :kitchen
                                      :n :study}
                                     "hall"
-                                    [:sword])
+                                    [:sword :water])
                       :kitchen (struct room
                                        {:e :hall}
                                        "kitchen")
@@ -21,6 +21,8 @@
                                      {:s :hall}
                                      "study")}
               :players {:player1 (Player. :hall [])
-                        :player2 (Player. :kitchen [])}
-              :items {:sword (struct item "A very pointy sword.")}})
+                        :player2 (Player. :kitchen [:cloth])}
+              :items {:sword (struct item "A very pointy sword.")
+                      :cloth (struct item "A dirty dishcloth.")
+                      :water (struct item "Some wet water.")}})
 
