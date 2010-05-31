@@ -22,7 +22,7 @@
 (defn move-player [world player-name direction]
   (let [routes (:exits (current-room world player-name))]
     (if (contains? routes direction)
-      (update-in world [:players player-name] #(merge % {:location (get routes direction)}))
+      (update-in world [:players player-name] assoc :location (get routes direction))
       world)))
 
 (defn has-item? [container item-name]
