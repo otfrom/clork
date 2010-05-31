@@ -3,6 +3,9 @@
 
 (def direction-desc {:n "North" :s "South" :e "East" :w "West"})
 
+(defn get-items [world player-name]
+  (get-in world [:players player-name :items]))
+
 (defn desc-exits [room]
   (let [exits (keys (:exits room))
         direction-strings (sort (map #(% direction-desc) exits))]

@@ -10,6 +10,10 @@
 
 (use-fixtures :once clork-fixture)
 
+(deftest get-player-items-test
+  (is (= #{} (get-items *test-world* :player1)))
+  (is (= #{:cloth} (get-items *test-world* :player2))))
+
 (deftest desc-exits-test
   (is (= "North West" (desc-exits (get-in *test-world* [:rooms :hall])))))
 
@@ -25,10 +29,6 @@
   (is (= :hall (get-in (move-player *test-world* :player1 :e) [:players :player1 :location])))
   ;; player 2 testing
   (is (= :hall (get-in (move-player *test-world* :player2 :e) [:players :player2 :location]))))
-
-(deftest get-player-items-test
-  (is (= #{} (get-items *test-world* :player1)))
-  (is (= #{:cloth} (get-items *test-world* :player2))))
 
 (deftest current-room-test
   (is (= (get-in *test-world* [:rooms :hall]) (current-room *test-world* :player1)))

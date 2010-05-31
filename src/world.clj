@@ -5,23 +5,23 @@
 
 (defrecord Item [description])
 
-(defstruct container :description :items)
+(defrecord Container [description items])
 
-(defstruct room :exits :description :items)
+(defrecord Room [exits description items])
 
-(def *world* {:rooms {:hall (struct room
-                                    {:w :kitchen
-                                     :n :study}
-                                    "hall"
-                                    #{:sword :water})
-                      :kitchen (struct room
-                                       {:e :hall}
-                                       "kitchen"
-                                       #{})
-                      :study (struct room
-                                     {:s :hall}
-                                     "study"
-                                     #{})}
+(def *world* {:rooms {:hall (Room.
+                             {:w :kitchen
+                              :n :study}
+                             "hall"
+                             #{:sword :water})
+                      :kitchen (Room.
+                                {:e :hall}
+                                "kitchen"
+                                #{})
+                      :study (Room.
+                              {:s :hall}
+                              "study"
+                              #{})}
               :players {:player1 (Player. :hall #{})
                         :player2 (Player. :kitchen #{:cloth})}
               :items {:sword (Item. "A very pointy sword.")
