@@ -43,4 +43,13 @@
   (let [room-name (get-in world [:players player-name :location])]
     (remove-from-room (add-to-items world player-name item-name) room-name item-name)))
 
+(defn remove-from-items [world player-name item-name]
+  world)
+
+(defn add-item-to-room [world room-name item-name]
+  (update-in world [:rooms room-name :items] conj item-name))
+
+(defn drop-item [world player-name item-name]
+  world)
+
 ;; (doseq [in (repeatedly #(read-line)) :while in] (process-input in))
