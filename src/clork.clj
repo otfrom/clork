@@ -46,8 +46,8 @@
     (if (has-item? room item) (update-in world [:players player :items] conj item)
         world)))
 
-(defn remove-from-room [world room item]
-  (update-in world [:rooms room :items] disj item))
+(defn remove-from-room [world room-name item-name]
+  (update-in world [:rooms room-name :items] disj item-name))
 
 (defn pick-up [world player-name item-name]
   (let [room-name (get-in world [:players player-name :location])]
