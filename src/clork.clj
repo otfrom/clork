@@ -31,19 +31,17 @@
 (defn has-item? [container item-name]
      (contains? (:items container) item-name))
 
-;; fix me: the has-item? check should be moved to pick up so that we
-;; can have the gods give players items
-(defn add-to-items [world player-name item-name]
-  (let [room (current-room world player-name)]
-    (if (has-item? room item-name) (update-in world [:players player-name :items] conj item-name)
-        world)))
+(defn add-to-player [world player-name item-name]
+  (update-in world [:players player-name :items] conj item-name))
 
 (defn remove-from-room [world room-name item-name]
   (update-in world [:rooms room-name :items] disj item-name))
 
 (defn pick-up [world player-name item-name]
   (let [room-name (get-in world [:players player-name :location])]
-    (remove-from-room (add-to-items world player-name item-name) room-name item-name)))
+    (if (has-item? (current-room world player-name) item-name)
+        (remove-from-room (add-to-player world player-name item-name) room-name item-name)
+        world)))
 
 (defn remove-from-player [world player-name item-name]
   (update-in world [:players player-name :items] disj item-name))

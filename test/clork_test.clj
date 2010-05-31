@@ -42,10 +42,10 @@
   (is (has-item? (current-room *test-world* :player1) :water))
   (is (not (has-item? (current-room *test-world* :player1) :penguin))))
 
-(deftest add-to-items-test
-  (is (= #{:water} (get-items (add-to-items *test-world* :player1 :water) :player1)))
-  (is (= #{:sword} (get-items (add-to-items *test-world* :player1 :sword) :player1)))
-  (is (= #{} (get-items (add-to-items *test-world* :player1 :penguin) :player1))))
+(deftest add-to-player-test
+  (is (= #{:water} (get-items (add-to-player *test-world* :player1 :water) :player1)))
+  (is (= #{:sword} (get-items (add-to-player *test-world* :player1 :sword) :player1)))
+  (is (= #{:penguin} (get-items (add-to-player *test-world* :player1 :penguin) :player1))))
 
 (deftest remove-from-room-test
   (is (= #{:water :sword} (get-in (remove-from-room *test-world* :hall :penguin) [:rooms :hall :items])))
@@ -59,11 +59,12 @@
   (is (= #{:water} (get-in (pick-up *test-world* :player1 :sword) [:rooms :hall :items])))
   (is (= #{:sword} (get-in (pick-up *test-world* :player1 :water) [:rooms :hall :items]))))
 
-(deftest remove-from-items-test
-  (is (= #{} (get-items (remove-from-items *test-world* :player2 :cloth) :player2))))
+(deftest remove-from-player-test
+  (is (= #{} (get-items (remove-from-player *test-world* :player2 :cloth) :player2))))
 
-(deftest add-item-to-room-test
-  (is (= #{:cloth} (get-in (add-item-to-room *test-world* :kitchen :cloth) [:rooms :kitchen :items]))))
+(deftest add-to-room-test
+  (is (= #{:cloth} (get-in (add-to-room *test-world* :kitchen :cloth) [:rooms :kitchen :items])))
+  (is (= #{:penguin} (get-in (add-to-room *test-world* :kitchen :penguin) [:rooms :kitchen :items]))))
 
 (deftest drop-item-test
   (is (= #{} (get-items (drop-item *test-world* :player2 :cloth) :player2)))
