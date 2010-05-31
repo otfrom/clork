@@ -37,8 +37,8 @@
   (get-in world [:players player :items]))
 
 ;; needs curr-room stuff done better fails tests.
-(defn has-item? [container item]
-     (contains? (:items container) item))
+(defn has-item? [container item-name]
+     (contains? (:items container) item-name))
 
 ;; move curr-room to has-item? or factor out to get room from tag
 (defn add-to-items [world player-name item-name]
