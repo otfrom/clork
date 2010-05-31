@@ -12,9 +12,13 @@
         direction-strings (sort (map #(% direction-desc) exits))]
     (reduce print-str direction-strings)))
 
+(defn current-room [world player]
+  (let [player-location (get-in world [:players player :location])]
+    (get-in world [:rooms player-location])))
+
 (defn look [world player]
   (let [curr-room-name (get-in world [:players player :location])
-        curr-room (get-in world [:rooms curr-room-name])
+        curr-room (current-room world player)
         room-desc (:description curr-room)
         items-in-room (:items curr-room)
         item-descs (sort (map #(get-in world [:items % :description]) items-in-room))]
@@ -31,10 +35,6 @@
 
 (defn get-items [world player]
   (get-in world [:players player :items]))
-
-(defn current-room [world player]
-  (let [player-location (get-in world [:players player :location])]
-    (get-in world [:rooms player-location])))
 
 ;; needs curr-room stuff done better fails tests.
 (defn has-item? [item room]
