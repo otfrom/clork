@@ -1,10 +1,6 @@
 (ns clork
   (:use world))
 
-;; represent a room
-;; represent a set of rooms
-;; represent monsters
-
 (def direction-desc {:n "North" :s "South" :e "East" :w "West"})
 
 (defn desc-exits [room]
