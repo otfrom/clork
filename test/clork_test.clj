@@ -56,4 +56,5 @@
   (is (= #{:water} (get-items (pick-up *test-world* :player1 :water) :player1)))
   (is (= :sword (get-in (pick-up *test-world* :player1 :sword) [:players :player1 :items :sword])))
   (is (= #{} (get-in (pick-up *test-world* :player1 :penguin) [:players :player1 :items])))
-  (is (= #{} (get-in (pick-up *test-world* :player1 :sword) [:rooms :hall :items]))))
+  (is (= #{:water} (get-in (pick-up *test-world* :player1 :sword) [:rooms :hall :items])))
+  (is (= #{:sword} (get-in (pick-up *test-world* :player1 :water) [:rooms :hall :items]))))
