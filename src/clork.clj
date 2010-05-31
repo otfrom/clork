@@ -26,11 +26,10 @@
          (println-str "Exits:" (desc-exits curr-room))
          (println-str "Items:" (reduce print-str item-descs)))))
 
-(defn move-player [world player direction]
-  (let [curr-room (get-in world [:players player :location])
-        routes (get-in world [:rooms curr-room :exits])]
+(defn move-player [world player-name direction]
+  (let [routes (:exits (current-room world player-name))]
     (if (contains? routes direction)
-      (update-in world [:players player] #(merge % {:location (get routes direction)}))
+      (update-in world [:players player-name] #(merge % {:location (get routes direction)}))
       world)))
 
 ;; needs curr-room stuff done better fails tests.
