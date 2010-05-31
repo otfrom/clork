@@ -47,6 +47,11 @@
   (is (= #{:sword} (get-items (add-to-items *test-world* :player1 :sword) :player1)))
   (is (= #{} (get-items (add-to-items *test-world* :player1 :penguin) :player1))))
 
+(deftest remove-from-room-test
+  (is (= #{:water :sword} (get-in (remove-from-room *test-world* :hall :penguin) [:rooms :hall :items])))
+  (is (= #{:water} (get-in (remove-from-room *test-world* :hall :sword) [:rooms :hall :items])))
+  (is (= #{:sword} (get-in (remove-from-room *test-world* :hall :water) [:rooms :hall :items]))))
+
 (deftest pick-up-test
   (is (= #{:water} (get-items (pick-up *test-world* :player1 :water) :player1)))
   (is (= :sword (get-in (pick-up *test-world* :player1 :sword) [:players :player1 :items :sword])))

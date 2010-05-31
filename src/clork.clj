@@ -46,7 +46,8 @@
     (if (has-item? room item) (update-in world [:players player :items] conj item)
         world)))
 
-(defn remove-from-world [world item])
+(defn remove-from-room [world room item]
+  (update-in world [:rooms room :items] disj item))
 
 (defn pick-up [world player item]
   (add-to-items world player item))
