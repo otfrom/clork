@@ -32,11 +32,9 @@
       (update-in world [:players player-name] #(merge % {:location (get routes direction)}))
       world)))
 
-;; needs curr-room stuff done better fails tests.
 (defn has-item? [container item-name]
      (contains? (:items container) item-name))
 
-;; move curr-room to has-item? or factor out to get room from tag
 (defn add-to-items [world player-name item-name]
   (let [room (current-room world player-name)]
     (if (has-item? room item-name) (update-in world [:players player-name :items] conj item-name)
