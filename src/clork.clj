@@ -17,7 +17,7 @@
         curr-room (get-in world [:rooms curr-room-name])
         room-desc (:description curr-room)
         items-in-room (:items curr-room)
-        item-descs (map #(get-in world [:items % :description]) items-in-room)]
+        item-descs (sort (map #(get-in world [:items % :description]) items-in-room))]
     (str (println-str room-desc) 
          (println-str "Exits:" (desc-exits curr-room))
          (println-str "Items:" (reduce print-str item-descs)))))
