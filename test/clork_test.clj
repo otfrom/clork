@@ -35,6 +35,9 @@
   (is (= (get-in *test-world* [:rooms :kitchen]) (current-room *test-world* :player2))))
 
 (deftest has-item-test
+  (is (has-item? (get-in *test-world* [:players :player2]) :cloth))
+  (is (not (has-item? (get-in *test-world* [:players :player1]) :cloth)))
+  (is (not (has-item? (get-in *test-world* [:players :player2]) :penguin)))
   (is (has-item? (current-room *test-world* :player1) :sword))
   (is (has-item? (current-room *test-world* :player1) :water))
   (is (not (has-item? (current-room *test-world* :player1) :penguin))))
