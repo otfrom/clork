@@ -37,13 +37,13 @@
   (get-in world [:players player :items]))
 
 ;; needs curr-room stuff done better fails tests.
-(defn has-item? [item room]
-     (some #{item} (:items room)))
+(defn has-item? [room item]
+     (contains? (:items room) item))
 
 ;; move curr-room to has-item? or factor out to get room from tag
 (defn add-to-items [world player item]
   (let [curr-room (current-room world player)]
-    (if (has-item? item current-room) (update-in world [:players player :items] #(conj % item))
+    (if (has-item? current-room item) (update-in world [:players player :items] conj item)
         world)))
 
 (defn remove-from-world [world item])
