@@ -3,7 +3,7 @@
 
 (defrecord Player [location items])
 
-(defstruct item :description)
+(defrecord Item [description])
 
 (defstruct container :description :items)
 
@@ -13,16 +13,18 @@
                                     {:w :kitchen
                                      :n :study}
                                     "hall"
-                                    [:sword :water])
+                                    #{:sword :water})
                       :kitchen (struct room
                                        {:e :hall}
-                                       "kitchen")
+                                       "kitchen"
+                                       #{})
                       :study (struct room
                                      {:s :hall}
-                                     "study")}
-              :players {:player1 (Player. :hall [])
-                        :player2 (Player. :kitchen [:cloth])}
-              :items {:sword (struct item "A very pointy sword.")
-                      :cloth (struct item "A dirty dishcloth.")
-                      :water (struct item "Some wet water.")}})
+                                     "study"
+                                     #{})}
+              :players {:player1 (Player. :hall #{})
+                        :player2 (Player. :kitchen #{:cloth})}
+              :items {:sword (Item. "A very pointy sword.")
+                      :cloth (Item. "A dirty dishcloth.")
+                      :water (Item. "Some wet water.")}})
 

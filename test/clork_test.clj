@@ -27,12 +27,15 @@
   (is (= :hall (get-in (move-player *test-world* :player2 :e) [:players :player2 :location]))))
 
 (deftest get-player-inv-test
-  (is (= [] (get-items *test-world* :player1)))
-  (is (= [:cloth] (get-items *test-world* :player2))))
+  (is (= #{} (get-items *test-world* :player1)))
+  (is (= #{:cloth} (get-items *test-world* :player2))))
 
 (deftest current-room-test
   (is (= (get-in *test-world* [:rooms :hall]) (current-room *test-world* :player1)))
   (is (= (get-in *test-world* [:rooms :kitchen]) (current-room *test-world* :player2))))
+
+(deftest has-item-test
+  (is (= true )))
 
 (deftest add-to-items-test
   (is (= [:water] (get-items (add-to-items *test-world* :player1 :water) :player1)))

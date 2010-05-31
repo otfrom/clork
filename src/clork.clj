@@ -36,13 +36,19 @@
   (let [player-location (get-in world [:players player :location])]
     (get-in world [:rooms player-location])))
 
+;; needs curr-room stuff done better fails tests.
+(defn has-item? [item room]
+     (some #{item} (:items room)))
+
+;; move curr-room to has-item? or factor out to get room from tag
 (defn add-to-items [world player item]
-  (let [curr-room (current-room world player)
-        item (some #{item} (:items curr-room))]
-    (if item (update-in world [:players player :items] #(conj % item))
+  (let [curr-room (current-room world player)]
+    (if (has-item? item current-room) (update-in world [:players player :items] #(conj % item))
         world)))
 
 (defn remove-from-world [world item])
 
 (defn pick-up [world player item]
   (add-to-items world player item))
+
+;; (doseq [in (repeatedly #(read-line)) :while in] (process-input in))
