@@ -26,7 +26,7 @@
   ;; player 2 testing
   (is (= :hall (get-in (move-player *test-world* :player2 :e) [:players :player2 :location]))))
 
-(deftest get-player-inv-test
+(deftest get-player-items-test
   (is (= #{} (get-items *test-world* :player1)))
   (is (= #{:cloth} (get-items *test-world* :player2))))
 
@@ -41,6 +41,7 @@
 
 (deftest add-to-items-test
   (is (= #{:water} (get-items (add-to-items *test-world* :player1 :water) :player1)))
+  (is (= #{:sword} (get-items (add-to-items *test-world* :player1 :sword) :player1)))
   (is (= #{} (get-items (add-to-items *test-world* :player1 :penguin) :player1))))
 
 (deftest pick-up-test
