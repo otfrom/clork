@@ -38,11 +38,11 @@
   (is (= true )))
 
 (deftest add-to-items-test
-  (is (= [:water] (get-items (add-to-items *test-world* :player1 :water) :player1)))
-  (is (= [] (get-items (add-to-items *test-world* :player1 :penguin) :player1))))
+  (is (= #{:water} (get-items (add-to-items *test-world* :player1 :water) :player1)))
+  (is (= #{} (get-items (add-to-items *test-world* :player1 :penguin) :player1))))
 
 (deftest pick-up-test
-  (is (= [:water] (get-items (pick-up *test-world* :player1 :water) :player1)))
-  (is (= :sword (get-in (pick-up *test-world* :player1 :sword) [:players :player1 :items 0])))
-  (is (= [] (get-in (pick-up *test-world* :player1 :penguin) [:players :player1 :items])))
-  (is (= [] (get-in (pick-up *test-world* :player1 :sword) [:rooms :hall :items]))))
+  (is (= #{:water} (get-items (pick-up *test-world* :player1 :water) :player1)))
+  (is (= :sword (get-in (pick-up *test-world* :player1 :sword) [:players :player1 :items :sword])))
+  (is (= #{} (get-in (pick-up *test-world* :player1 :penguin) [:players :player1 :items])))
+  (is (= #{} (get-in (pick-up *test-world* :player1 :sword) [:rooms :hall :items]))))
