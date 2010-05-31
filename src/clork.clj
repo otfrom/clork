@@ -33,9 +33,6 @@
       (update-in world [:players player] #(merge % {:location (get routes direction)}))
       world)))
 
-(defn get-items [world player]
-  (get-in world [:players player :items]))
-
 ;; needs curr-room stuff done better fails tests.
 (defn has-item? [container item-name]
      (contains? (:items container) item-name))
