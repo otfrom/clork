@@ -18,7 +18,7 @@
 (defn look [world player-name]
   (let [room (current-room world player-name)
         item-descs (sort (map #(get-in world [:items % :description]) (:items room)))]
-    (str (println-str (:description room)) 
+    (str (println-str (:description room))
          (println-str "Exits:" (desc-exits room))
          (println-str "Items:" (reduce print-str item-descs)))))
 
