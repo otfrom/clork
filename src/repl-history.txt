@@ -33,9 +33,9 @@ clork> (move-player (struct player :hall) rooms :e)
 {:location nil}
 clork> (move-player (struct player :hall) rooms :e)
 {:location :hall}
-clork> 
+clork>
 nil
-clork> 
+clork>
 nil
 clork> the-player
 ; Evaluation aborted.
@@ -54,4 +54,4 @@ clork> (west)
 clork> (west)
 A lounge with a red chez longue
 nil
-clork> 
+clork>

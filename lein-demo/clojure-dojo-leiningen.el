@@ -6,9 +6,9 @@
 
   (defvar hd:*presentation-work-buffer* nil)
   (defvar hd:*presentation-work-marker* nil)
-  
-  
-  
+
+
+
   (defun hd:presentation-next-step ()
     (interactive)
     (setf hd:*presentation-previous-buffer* (current-buffer))
@@ -42,7 +42,7 @@
     (end-of-buffer)
     (split-window-vertically (max 4 (1+ (count-lines (point-min) (point-max)))))
     (other-window 1))
-  
+
   ;; end of the presentation code
   )
 
